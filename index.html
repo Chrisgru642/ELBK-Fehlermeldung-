@@ -1,1 +1,457 @@
+<!DOCTYPE html>
 
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fehlermeldung – Elisabeth-Lüders BK Hamm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+```
+:root {
+  --blue: #1a5fa8;
+  --blue2: #2a7fd4;
+  --accent: #e63946;
+  --green: #2a9d8f;
+  --text: #0d2b4e;
+  --card: rgba(255,255,255,0.72);
+  --cb: rgba(30,100,200,0.18);
+  --shadow: 0 4px 20px rgba(20,70,160,0.12);
+  --r: 14px;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 15% 0%,  rgba(120,190,255,0.55) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 90%, rgba(60,140,230,0.35) 0%, transparent 55%),
+    linear-gradient(170deg, #bdd9f5 0%, #e4f2ff 45%, #cce4f8 100%);
+  background-attachment: fixed;
+  padding-bottom: 80px;
+}
+
+header {
+  background: rgba(255,255,255,0.60);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 2px solid rgba(100,170,240,0.40);
+  padding: 20px 24px 16px;
+  text-align: center;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 24px rgba(20,70,160,0.10);
+}
+.hbadge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue); color: #fff;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 4px 14px;
+  border-radius: 30px; margin-bottom: 10px;
+}
+header h1 {
+  font-size: clamp(1.35rem, 4.5vw, 2rem);
+  font-weight: 900; color: var(--blue); line-height: 1.2;
+}
+header p { margin-top: 5px; font-size: 1rem; font-weight: 600; color: #3a6ea8; }
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 28px 16px 0; }
+
+.step { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; margin-top: 28px; }
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem; font-weight: 900; flex-shrink: 0;
+}
+.step h2 { font-size: 1.1rem; font-weight: 800; color: var(--blue); }
+
+.tab-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 11px 20px;
+  border: 2px solid var(--cb); border-radius: 40px;
+  background: var(--card);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700; font-size: 0.97rem;
+  color: var(--text); cursor: pointer; transition: all 0.18s;
+  display: flex; align-items: center; gap: 7px;
+}
+.tab-btn:hover { background: rgba(100,180,255,0.35); border-color: var(--blue); }
+.tab-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); box-shadow: 0 4px 16px rgba(20,70,160,0.25); }
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+.room-btn {
+  background: var(--card); border: 2px solid var(--cb);
+  border-radius: 10px; padding: 12px 6px;
+  text-align: center; cursor: pointer;
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.97rem;
+  color: var(--text); transition: all 0.16s; box-shadow: var(--shadow);
+}
+.room-btn:hover  { background: rgba(100,180,255,0.30); border-color: var(--blue2); transform: translateY(-2px); }
+.room-btn.active { background: var(--blue2); color: #fff; border-color: var(--blue); }
+
+.error-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 12px;
+}
+.error-btn {
+  background: var(--card); border: 2px solid var(--cb);
+  border-radius: var(--r); padding: 16px 14px;
+  cursor: pointer; font-family: 'Outfit', sans-serif;
+  font-weight: 700; font-size: 1rem; color: var(--text);
+  display: flex; align-items: center; gap: 10px;
+  transition: all 0.16s; box-shadow: var(--shadow); text-align: left; line-height: 1.3;
+}
+.error-btn .eico { font-size: 1.5rem; flex-shrink: 0; }
+.error-btn:hover  { background: rgba(230,57,70,0.08); border-color: var(--accent); transform: translateY(-2px); }
+.error-btn.active { background: rgba(230,57,70,0.13); border-color: var(--accent); }
+
+#faq-panel {
+  display: none;
+  background: rgba(255,255,255,0.82);
+  border: 2px solid rgba(42,157,143,0.35);
+  border-radius: var(--r);
+  padding: 18px 20px; margin-top: 18px;
+  box-shadow: var(--shadow);
+  animation: fi 0.25s ease;
+}
+@keyframes fi { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+#faq-panel h3 { font-size: 1rem; font-weight: 800; color: var(--green); margin-bottom: 12px; }
+.faq-list { display: flex; flex-direction: column; gap: 8px; }
+.faq-item {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(42,157,143,0.07); border: 1.5px solid rgba(42,157,143,0.20);
+  border-radius: 8px; padding: 10px 14px; cursor: pointer;
+  font-weight: 600; font-size: 0.97rem; color: var(--text);
+  transition: background 0.15s; user-select: none;
+}
+.faq-item:hover { background: rgba(42,157,143,0.15); }
+.faq-check {
+  width: 22px; height: 22px; border-radius: 5px;
+  border: 2px solid rgba(42,157,143,0.5); background: #fff;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; transition: all 0.15s;
+}
+.faq-item.checked .faq-check { background: var(--green); border-color: var(--green); color: #fff; }
+
+#sonstiges-box { display: none; margin-top: 16px; }
+#sonstiges-box textarea {
+  width: 100%; border: 2px solid var(--cb);
+  border-radius: var(--r); padding: 12px 14px;
+  font-family: 'Outfit', sans-serif; font-size: 1rem;
+  color: var(--text); background: rgba(255,255,255,0.85);
+  resize: vertical; min-height: 90px; outline: none; transition: border 0.2s;
+}
+#sonstiges-box textarea:focus { border-color: var(--blue); }
+#sonstiges-box label { display: block; font-weight: 700; margin-bottom: 7px; color: var(--blue); font-size: 1rem; }
+
+#preview {
+  display: none;
+  background: rgba(255,255,255,0.80);
+  border: 2px solid rgba(30,100,200,0.22);
+  border-radius: var(--r); padding: 16px 20px; margin-top: 24px;
+  font-size: 1.05rem; font-weight: 600; color: #1a4a8a;
+  box-shadow: var(--shadow); line-height: 1.8;
+}
+#preview strong { color: var(--accent); }
+
+#send-btn {
+  display: none; width: 100%; max-width: 460px;
+  margin: 20px auto 0; padding: 18px;
+  background: linear-gradient(135deg, #1a5fa8, #2a82d8);
+  color: #fff; border: none; border-radius: 16px;
+  font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 900;
+  cursor: pointer; letter-spacing: 0.03em;
+  box-shadow: 0 6px 24px rgba(20,70,160,0.28); transition: all 0.2s;
+}
+#send-btn:hover  { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(20,70,160,0.36); }
+#send-btn:active { transform: scale(0.98); }
+
+.send-note {
+  display: none; text-align: center;
+  font-size: 0.87rem; font-weight: 600; color: #4a7aaa; margin-top: 8px;
+}
+
+hr { border: none; border-top: 1.5px solid rgba(30,100,200,0.12); margin: 26px 0 0; }
+
+#toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 13px 26px; border-radius: 40px;
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.98rem;
+  color: #fff; z-index: 999;
+  transition: transform 0.38s cubic-bezier(.17,.67,.35,1.2), opacity 0.38s;
+  opacity: 0; pointer-events: none;
+}
+#toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+#toast.ok  { background: var(--green); }
+#toast.err { background: var(--accent); }
+
+@media(max-width:520px) {
+  .error-grid { grid-template-columns: 1fr 1fr; }
+}
+```
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hbadge">🏫 ELB Hamm</div>
+  <h1>Fehlermeldung<br>Elisabeth-Lüders BK, Hamm</h1>
+  <p>Gebäude → Raum → Fehler auswählen und per E-Mail melden</p>
+</header>
+
+<div class="wrap">
+
+  <!-- 1: GEBÄUDE -->
+
+  <div class="step"><div class="step-num">1</div><h2>Gebäude auswählen</h2></div>
+  <div class="tab-bar" id="building-tabs">
+    <button class="tab-btn active" data-b="Gebäude A (Wirtschaftsgebäude)" onclick="selBuilding(this)">
+      🏢 Gebäude A &nbsp;<span style="font-weight:500;font-size:0.85em;opacity:.8">(Wirtschaft)</span>
+    </button>
+    <button class="tab-btn" data-b="Gebäude C (Pavillons)" onclick="selBuilding(this)">
+      🏗️ Gebäude C &nbsp;<span style="font-weight:500;font-size:0.85em;opacity:.8">(Pavillons)</span>
+    </button>
+    <button class="tab-btn" data-b="Gebäude D (Hauptgebäude)" onclick="selBuilding(this)">
+      🏫 Gebäude D &nbsp;<span style="font-weight:500;font-size:0.85em;opacity:.8">(Hauptgebäude)</span>
+    </button>
+  </div>
+
+  <hr/>
+
+  <!-- 2: RAUM -->
+
+  <div class="step"><div class="step-num">2</div><h2>Raum auswählen</h2></div>
+  <div class="room-grid" id="room-grid"></div>
+
+  <hr/>
+
+  <!-- 3: FEHLER -->
+
+  <div class="step"><div class="step-num">3</div><h2>Fehler auswählen</h2></div>
+  <div class="error-grid" id="error-grid"></div>
+
+  <!-- FAQ -->
+
+  <div id="faq-panel">
+    <h3 id="faq-title">✅ Bitte zunächst prüfen:</h3>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+
+  <!-- SONSTIGES -->
+
+  <div id="sonstiges-box">
+    <label>✏️ Fehlerbeschreibung:</label>
+    <textarea id="sonstiges-text" placeholder="Bitte den Fehler kurz beschreiben…"></textarea>
+  </div>
+
+  <!-- VORSCHAU -->
+
+  <div id="preview"></div>
+
+  <!-- SENDEN -->
+
+<button id="send-btn" onclick="sendMail()">📧 Fehlermeldung per E-Mail senden</button>
+
+  <p class="send-note" id="send-note">Outlook öffnet sich mit der fertigen Nachricht — einfach auf <strong>Senden</strong> klicken.</p>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+const BUILDINGS = {
+  "Gebäude A (Wirtschaftsgebäude)": [
+    "A002","A003","A005","A006","A009","A010","A011","A012",
+    "A104","A105","A108","A109","A112","A113","A114","A115"
+  ],
+  "Gebäude C (Pavillons)": [
+    "C001","C003","C004","C006","C007","C009",
+    "C011","C013","C014","C016","C017","C019"
+  ],
+  "Gebäude D (Hauptgebäude)": [
+    "D107","D109","D110","D113","D114","D115","D116",
+    "D203","D204","D206","D207","D210","D211","D213","D214","D216",
+    "D303","D306","D308","D309","D310","D311","D314","D316",
+    "DU03","DU06","DU08"
+  ]
+};
+
+const ERRORS = [
+  { id:"fb-tv",      icon:"📺", text:"Fernbedienung TV",      faq:null },
+  { id:"fb-beamer",  icon:"📽️", text:"Fernbedienung Beamer",  faq:null },
+  { id:"fb-atv",     icon:"🍎", text:"Fernbedienung Apple TV", faq:null },
+  { id:"beamer",     icon:"💡", text:"Beamer",                 faq:null },
+  { id:"drucker",    icon:"🖨️", text:"Drucker",
+    faq:["Papier leer geprüft","Toner leer geprüft","Netzwerkverbindung am Drucker OK"] },
+  { id:"appletv",    icon:"🍏", text:"Apple TV",
+    faq:["Netzwerkverbindung geprüft","Apple TV ist eingeschaltet","Apple TV kurz vom Strom getrennt (Neustart versucht)"] },
+  { id:"wlan",       icon:"📡", text:"WLAN",                   faq:null },
+  { id:"tv",         icon:"🖥️", text:"TV",
+    faq:["Fernseher ist eingeschaltet","Fernseher hat Strom","Fernbedienung funktioniert"] },
+  { id:"sonstiges",  icon:"✏️", text:"Sonstiges",              faq:null, free:true }
+];
+
+const MAILTO = "apple@elbkhamm.de";
+
+let S = { building: Object.keys(BUILDINGS)[0], room:null, error:null, faqChecked:[], freeText:"" };
+
+window.onload = () => { renderRooms(S.building); renderErrors(); };
+
+function selBuilding(btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  S.building = btn.dataset.b;
+  S.room = null;
+  resetErr();
+  renderRooms(S.building);
+  refresh();
+}
+
+function renderRooms(b) {
+  const g = document.getElementById('room-grid');
+  g.innerHTML = '';
+  BUILDINGS[b].forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'room-btn';
+    btn.textContent = r;
+    btn.onclick = () => { selRoom(r, btn); };
+    g.appendChild(btn);
+  });
+}
+
+function selRoom(room, btn) {
+  document.querySelectorAll('.room-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  S.room = room;
+  refresh();
+}
+
+function renderErrors() {
+  const g = document.getElementById('error-grid');
+  g.innerHTML = '';
+  ERRORS.forEach(err => {
+    const btn = document.createElement('button');
+    btn.className = 'error-btn';
+    btn.innerHTML = `<span class="eico">${err.icon}</span>${err.text}`;
+    btn.onclick = () => selError(err, btn);
+    g.appendChild(btn);
+  });
+}
+
+function selError(err, btn) {
+  document.querySelectorAll('.error-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  S.error = err; S.faqChecked = []; S.freeText = "";
+
+  const fp = document.getElementById('faq-panel');
+  const fl = document.getElementById('faq-list');
+  if (err.faq) {
+    document.getElementById('faq-title').textContent = `✅ Bitte zunächst prüfen (${err.text}):`;
+    fl.innerHTML = '';
+    err.faq.forEach((item) => {
+      const d = document.createElement('div');
+      d.className = 'faq-item';
+      d.innerHTML = `<div class="faq-check"></div>${item}`;
+      d.onclick = () => {
+        d.classList.toggle('checked');
+        d.querySelector('.faq-check').textContent = d.classList.contains('checked') ? '✓' : '';
+        if (d.classList.contains('checked')) S.faqChecked.push(item);
+        else S.faqChecked = S.faqChecked.filter(x=>x!==item);
+        refresh();
+      };
+      fl.appendChild(d);
+    });
+    fp.style.display = 'block';
+  } else {
+    fp.style.display = 'none';
+  }
+
+  const sb = document.getElementById('sonstiges-box');
+  const st = document.getElementById('sonstiges-text');
+  if (err.free) {
+    sb.style.display = 'block'; st.value = '';
+    st.oninput = () => { S.freeText = st.value; refresh(); };
+  } else {
+    sb.style.display = 'none';
+  }
+
+  refresh();
+}
+
+function resetErr() {
+  S.error = null; S.faqChecked = []; S.freeText = "";
+  document.querySelectorAll('.error-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('faq-panel').style.display = 'none';
+  document.getElementById('sonstiges-box').style.display = 'none';
+  document.getElementById('sonstiges-text').value = '';
+}
+
+function refresh() {
+  const prev  = document.getElementById('preview');
+  const sbtn  = document.getElementById('send-btn');
+  const snote = document.getElementById('send-note');
+  const ok = S.room && S.error && (!S.error.free || S.freeText.trim().length > 0);
+
+  if (ok) {
+    const fq = S.faqChecked.length > 0
+      ? `<br>🔍 Geprüft: <strong>${S.faqChecked.join(' &nbsp;|&nbsp; ')}</strong>`
+      : (S.error.faq ? '<br>🔍 Keine FAQ-Punkte abgehakt' : '');
+    const ft = S.error.free ? `<br>📝 Beschreibung: <strong>${esc(S.freeText)}</strong>` : '';
+    prev.innerHTML =
+      `📋 Gebäude: <strong>${S.building}</strong><br>` +
+      `🚪 Raum: <strong>${S.room}</strong><br>` +
+      `⚠️ Problem: <strong>${S.error.icon} ${S.error.text}</strong>${fq}${ft}`;
+    prev.style.display  = 'block';
+    sbtn.style.display  = 'block';
+    snote.style.display = 'block';
+  } else {
+    prev.style.display  = 'none';
+    sbtn.style.display  = 'none';
+    snote.style.display = 'none';
+  }
+}
+
+function sendMail() {
+  const now = new Date().toLocaleString('de-DE',{dateStyle:'short',timeStyle:'short'});
+  const subj = `Fehlermeldung: ${S.building} / Raum ${S.room} – ${S.error.text}`;
+  let body = `Fehlermeldung – Elisabeth-Lüders BK Hamm\n`;
+  body    += `==========================================\n\n`;
+  body    += `Gebäude  : ${S.building}\n`;
+  body    += `Raum     : ${S.room}\n`;
+  body    += `Problem  : ${S.error.icon} ${S.error.text}\n`;
+  body    += `Zeitpunkt: ${now}\n`;
+  if (S.error.faq && S.error.faq.length > 0) {
+    body += `\nFAQ – Bereits geprüft:\n`;
+    S.error.faq.forEach(item => {
+      body += `  [${S.faqChecked.includes(item)?'x':' '}] ${item}\n`;
+    });
+  }
+  if (S.error.free && S.freeText.trim()) {
+    body += `\nBeschreibung:\n${S.freeText.trim()}\n`;
+  }
+  body += `\n--\nGesendet über die Fehlermeldungs-App der ELB Hamm`;
+
+  window.location.href = `mailto:${MAILTO}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+  showToast('📧 Outlook öffnet sich…', 'ok');
+}
+
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `show ${type}`;
+  setTimeout(()=>{ t.className = type; }, 3200);
+}
+</script>
+
+</body>
+</html>
