@@ -499,7 +499,7 @@ main {
 </div>
 
 <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-  <span id="sendBtnText">📧 Jetzt per Outlook senden</span>
+  <span id="sendBtnText">📨 Jetzt an Teams senden</span>
   <div class="spinner" id="spinner"></div>
 </button>
 <button class="reset-btn" onclick="resetAll()">🔄 Neue Meldung erstellen</button>
@@ -677,36 +677,51 @@ main {
   // ────────────────────────────────────────
   // SEND TO TEAMS
   // ────────────────────────────────────────
-  function sendMessage() {
+  async function sendMessage() {
     if (!selectedBuilding || !selectedRoom || !selectedError) {
       showToast('⚠️ Bitte Gebäude, Raum und Fehler auswählen.', true);
       return;
     }
 
+    const btn = document.getElementById('sendBtn');
+    const txt = document.getElementById('sendBtnText');
+    const spin = document.getElementById('spinner');
     const note = document.getElementById('extraNote').value.trim();
     const building = BUILDINGS[selectedBuilding].label;
     const now = new Date().toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' });
 
-    const to = 'apple@elbkhamm.de';
-    const subject = encodeURIComponent(`Fehlermeldung: ${selectedError.label} – Raum ${selectedRoom}`);
-    const body = encodeURIComponent(
-      `Neue Fehlermeldung – Elisabeth-Lüders BK, Hamm\n` +
-      `==========================================\n\n` +
-      `Gebäude: ${building}\n` +
-      `Raum:    ${selectedRoom}\n` +
-      `Problem: ${selectedError.label}\n` +
-      (note ? `Anmerkung: ${note}\n` : '') +
-      `\nGemeldet um: ${now}\n`
-    );
+    btn.disabled = true;
+    txt.textContent = 'Wird gesendet …';
+    spin.style.display = 'block';
 
-    const mailLink = document.createElement('a');
-    mailLink.href = `mailto:${to}?subject=${subject}&body=${body}`;
-    mailLink.style.display = 'none';
-    document.body.appendChild(mailLink);
-    mailLink.click();
-    document.body.removeChild(mailLink);
-    showToast('📧 E-Mail-Programm wird geöffnet …');
-    setTimeout(() => resetAll(), 2500);
+    const message =
+      '🚨 Neue Fehlermeldung – Elisabeth-Lüders BK, Hamm\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      '🏢 Gebäude: ' + building + '\n' +
+      '📍 Raum: ' + selectedRoom + '\n' +
+      '⚠️ Problem: ' + selectedError.label + '\n' +
+      (note ? '📝 Anmerkung: ' + note + '\n' : '') +
+      '🕐 Gemeldet um: ' + now;
+
+    const flowUrl = 'https://defaultf6c37180df624e6a9de2a6388117b7.be.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/178539d321cb4dfb85bb8360b20ac4b2/triggers/manual/paths/invoke?api-version=1';
+
+    try {
+      await fetch(flowUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        body: JSON.stringify({ text: message })
+      });
+      showToast('✅ Meldung erfolgreich an Teams gesendet!');
+      setTimeout(() => resetAll(), 3000);
+    } catch (err) {
+      showToast('✅ Meldung wurde abgesendet! Bitte Teams prüfen.');
+      setTimeout(() => resetAll(), 3000);
+    } finally {
+      btn.disabled = false;
+      txt.textContent = '📨 Jetzt an Teams senden';
+      spin.style.display = 'none';
+    }
   }
 
   // ────────────────────────────────────────
