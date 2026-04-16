@@ -176,12 +176,39 @@
     const MAIL_HAUSMEISTER = 'hausmeister@elbkhamm.de';
     const EDV_ERRORS = ['Fernbedienung','WLAN','Drucker','Fernseher','Apple TV','Beamer'];
 
-    const FAQ_FB      = [ { label: 'Fernbedienung aufgeladen', sub: 'Batterien vorhanden?' }, { label: 'Fernbedienung vorhanden', sub: null }, { label: 'Fernbedienung gekoppelt', sub: null } ];
-    const FAQ_DRUCKER = [ { label: 'Papier aufgefüllt', sub: null }, { label: 'Toner leer', sub: null }, { label: 'Netzwerkkabel geprüft', sub: null }, { label: 'Drucker eingeschaltet', sub: null } ];
-    const FAQ_ATV     = [ { label: 'ATV Kopplung iPad funktioniert', sub: null }, { label: 'ATV Kopplung TV funktioniert', sub: null }, { label: 'ATV Steuerung funktioniert', sub: null }, { label: 'ATV Netzwerkverbindung vorhanden', sub: null }, { label: 'ATV kurz vom Strom genommen', sub: null } ];
-    const FAQ_BEAMER  = [ { label: 'Einschalten möglich', sub: null }, { label: 'Bild vorhanden', sub: null }, { label: 'Steuerung mit der Fernbedienung möglich', sub: null }, { label: 'Gerät kurz vom Strom getrennt', sub: null } ];
-    const FAQ_TV      = [ { label: 'Gerät lässt sich einschalten', sub: null }, { label: 'Gerät lässt sich steuern', sub: null }, { label: 'Fernbedienung vorhanden', sub: null } ];
-    const FAQ_WLAN    = [ { label: 'WLAN-Netz sichtbar', sub: null }, { label: 'WLAN lässt sich verbinden', sub: null } ];
+    const FAQ_FB = [
+      { label: 'Fernbedienung vorhanden', sub: null },
+      { label: 'Fernbedienung aufgeladen, Batterien vorhanden?', sub: null },
+      { label: 'Fernbedienung gekoppelt', sub: null }
+    ];
+    const FAQ_DRUCKER = [
+      { label: 'Papier aufgefüllt', sub: null },
+      { label: 'Toner leer', sub: null },
+      { label: 'Netzwerkkabel geprüft', sub: null },
+      { label: 'Drucker eingeschaltet', sub: null }
+    ];
+    const FAQ_ATV = [
+      { label: 'ATV Kopplung iPad funktioniert', sub: null },
+      { label: 'ATV Kopplung TV funktioniert', sub: null },
+      { label: 'ATV Steuerung funktioniert', sub: null },
+      { label: 'ATV Netzwerkverbindung vorhanden', sub: null },
+      { label: 'ATV kurz vom Strom genommen', sub: null }
+    ];
+    const FAQ_BEAMER = [
+      { label: 'Einschalten möglich', sub: null },
+      { label: 'Bild vorhanden', sub: null },
+      { label: 'Steuerung mit der Fernbedienung möglich', sub: null },
+      { label: 'Gerät kurz vom Strom getrennt', sub: null }
+    ];
+    const FAQ_TV = [
+      { label: 'Gerät lässt sich einschalten', sub: null },
+      { label: 'Gerät lässt sich steuern', sub: null },
+      { label: 'Fernbedienung vorhanden', sub: null }
+    ];
+    const FAQ_WLAN = [
+      { label: 'WLAN lässt sich verbinden', sub: null },
+      { label: 'WLAN-Netz sichtbar', sub: null }
+    ];
 
     let currentFaq = [];
     const answers = [];
