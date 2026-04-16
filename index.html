@@ -6,13 +6,7 @@
   <title>Störungsmeldung – Elisabeth-Lüders-Berufskolleg Hamm</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(135deg, rgba(20,80,180,0.92) 0%, rgba(10,40,120,0.96) 100%);
-      display: flex; align-items: center; justify-content: center;
-      padding: 2rem;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; min-height: 100vh; background: linear-gradient(135deg, rgba(20,80,180,0.92) 0%, rgba(10,40,120,0.96) 100%); display: flex; align-items: center; justify-content: center; padding: 2rem; }
     .modal { background: rgba(255,255,255,0.97); border-radius: 16px; width: 100%; max-width: 500px; padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,40,0.25); }
     .school-header { margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1.5px solid #e0e8f8; }
     .school-name { font-size: 15px; font-weight: 500; color: #1a1a2e; }
@@ -122,6 +116,12 @@
         <div class="building-row" onclick="selectBuilding(this,'D','D-Gebäude','Hauptgebäude')">
           <div><div class="b-name">D-Gebäude</div><div class="b-sub">Hauptgebäude</div></div><span class="b-arrow">›</span>
         </div>
+        <div class="building-row" onclick="selectBuilding(this,'T','Titaniastraße','Außenstelle Titaniastraße')">
+          <div><div class="b-name">Titaniastraße</div><div class="b-sub">Außenstelle Titaniastraße</div></div><span class="b-arrow">›</span>
+        </div>
+        <div class="building-row" onclick="selectBuilding(this,'SH','Sporthalle','Sporthalle')">
+          <div><div class="b-name">Sporthalle</div><div class="b-sub">Sporthalle</div></div><span class="b-arrow">›</span>
+        </div>
       </div>
     </div>
 
@@ -187,10 +187,13 @@
     const answers = [];
 
     const rooms = {
-      A: { 'Erdgeschoss': ['A002','A003','A005','A006','A009','A010','A011','A012'], 'Obergeschoss': ['A104','A105','A108','A109','A112','A113','A114','A115'] },
-      C: { 'Pavillons': ['C001','C003','C004','C006','C007','C009','C011','C013','C014','C016','C017','C019'] },
-      D: { '1. Obergeschoss': ['D107','D109','D110','D113','D114','D115','D116'], '2. Obergeschoss': ['D203','D204','D206','D207','D210','D211','D213','D214','D216'], '3. Obergeschoss': ['D303','D305','D306','D308','D309','D310','D314','D316'], 'Untergeschoss': ['DU03','DU06','DU07','DU08'] }
+      A:  { 'Erdgeschoss': ['A002','A003','A005','A006','A009','A010','A011','A012'], 'Obergeschoss': ['A104','A105','A108','A109','A112','A113','A114','A115'] },
+      C:  { 'Pavillons': ['C001','C003','C004','C006','C007','C009','C011','C013','C014','C016','C017','C019'] },
+      D:  { '1. Obergeschoss': ['D107','D109','D110','D113','D114','D115','D116'], '2. Obergeschoss': ['D203','D204','D206','D207','D210','D211','D213','D214','D216'], '3. Obergeschoss': ['D303','D305','D306','D308','D309','D310','D314','D316'], 'Untergeschoss': ['DU03','DU06','DU07','DU08'] },
+      T:  { '1. Obergeschoss': ['T1.1','T1.2','T1.3','T1.4','T1.6','T1.8'], '2. Obergeschoss': ['T2.1','T2.2','T2.3','T2.4','T2.6','T2.8'], 'Poolräume': ['TP1','TP2','TP3','TP4'] },
+      SH: { 'Sporthalle': ['SH 1','SH 2','SH 3'] }
     };
+
     const errors = ['Fernbedienung','WLAN','Drucker','Fernseher','Apple TV','Beamer','Hausmeister'];
     const stepLabels = ['Gebäude wählen','Raum wählen','Problem wählen','Details'];
 
@@ -275,26 +278,20 @@
       currentFaq = isFb ? FAQ_FB : isDrucker ? FAQ_DRUCKER : isATV ? FAQ_ATV : isBeamer ? FAQ_BEAMER : isTV ? FAQ_TV : isWlan ? FAQ_WLAN : [];
 
       let html = '<div class="section-title">Meldung – ' + label + '</div>';
-
       if (isAppleTVFb) {
-        html += '<div class="info-box"><div class="info-title">Tipp: Apple TV über das iPad steuern</div>' +
-          '<ul class="info-steps">' +
+        html += '<div class="info-box"><div class="info-title">Tipp: Apple TV über das iPad steuern</div><ul class="info-steps">' +
           '<li><span class="num">1</span><span>iPad entsperren und von oben rechts nach unten wischen, um das <strong>Kontrollzentrum</strong> zu öffnen.</span></li>' +
           '<li><span class="num">2</span><span>Das Symbol <strong>Apple TV Remote</strong> im Kontrollzentrum antippen.</span></li>' +
           '<li><span class="num">3</span><span>Das gewünschte Apple TV auswählen und direkt steuern.</span></li>' +
           '</ul></div>';
       }
       if (isATV) {
-        html += '<div class="warning-box"><div class="warning-title">Hinweis</div>' +
-          'Das Streamen von Inhalten über Dienste wie Netflix, YouTube o.ä. ist über das iPad <strong>nicht möglich</strong>. Bitte dafür die direkt auf dem <strong>Apple TV installierten Apps</strong> verwenden.</div>';
+        html += '<div class="warning-box"><div class="warning-title">Hinweis</div>Das Streamen von Inhalten über Dienste wie Netflix, YouTube o.ä. ist über das iPad <strong>nicht möglich</strong>. Bitte dafür die direkt auf dem <strong>Apple TV installierten Apps</strong> verwenden.</div>';
       }
       if (needsFaq) html += buildFaqChecklist(currentFaq);
-
       html += '<div class="faq-item"><div class="faq-label">Beschreibung</div><textarea id="faq_desc" rows="4" placeholder="Bitte das Problem so genau wie möglich beschreiben …"></textarea></div>';
-
       const mailAddr = isHausmeister ? MAIL_HAUSMEISTER : isEdv ? MAIL_EDV : null;
       if (mailAddr) html += '<div class="mail-hint">Diese Meldung wird per E-Mail gesendet an: <strong>' + mailAddr + '</strong></div>';
-
       document.getElementById('faqContent').innerHTML = html;
       document.getElementById('btnSubmit').disabled = needsFaq;
     }
