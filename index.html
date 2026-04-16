@@ -13,11 +13,7 @@
       display: flex; align-items: center; justify-content: center;
       padding: 2rem;
     }
-    .modal {
-      background: rgba(255,255,255,0.97);
-      border-radius: 16px; width: 100%; max-width: 500px;
-      padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,40,0.25);
-    }
+    .modal { background: rgba(255,255,255,0.97); border-radius: 16px; width: 100%; max-width: 500px; padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,40,0.25); }
     .school-header { margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1.5px solid #e0e8f8; }
     .school-name { font-size: 15px; font-weight: 500; color: #1a1a2e; }
     .school-sub { font-size: 12px; color: #888; margin-top: 3px; }
@@ -31,12 +27,7 @@
     .step-dot.done { background: #4caf50; }
     .section-title { font-size: 11px; font-weight: 500; color: #1a56d6; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
     .building-list, .choice-list { display: flex; flex-direction: column; gap: 8px; }
-    .building-row, .choice-row {
-      border: 1.5px solid #e0e8f8; border-radius: 10px;
-      padding: 14px 16px; cursor: pointer; background: #f7f9ff;
-      display: flex; justify-content: space-between; align-items: center;
-      transition: all 0.15s;
-    }
+    .building-row, .choice-row { border: 1.5px solid #e0e8f8; border-radius: 10px; padding: 14px 16px; cursor: pointer; background: #f7f9ff; display: flex; justify-content: space-between; align-items: center; transition: all 0.15s; }
     .building-row:hover, .choice-row:hover { border-color: #1a56d6; background: #eef3ff; }
     .building-row.selected, .choice-row.selected { border-color: #1a56d6; background: #ddeaff; }
     .b-name, .c-name { font-size: 14px; font-weight: 500; color: #1a1a2e; }
@@ -55,20 +46,22 @@
     .faq-checklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
     .check-item { border: 1.5px solid #e0e8f8; border-radius: 10px; padding: 12px 14px; background: #f7f9ff; transition: border-color 0.15s; }
     .check-item.answered-yes { border-color: #4caf50; background: #f0fbf4; }
-    .check-item.answered-no  { border-color: #e53935; background: #fff5f5; }
+    .check-item.answered-no { border-color: #e53935; background: #fff5f5; }
     .check-question { font-size: 13px; font-weight: 500; color: #1a1a2e; margin-bottom: 9px; }
     .check-buttons { display: flex; gap: 8px; }
     .yn-btn { flex: 1; border: 1.5px solid #d0d8ea; border-radius: 8px; padding: 7px 0; font-size: 13px; font-weight: 500; cursor: pointer; background: #fff; color: #555; transition: all 0.15s; text-align: center; }
     .yn-btn:hover { border-color: #1a56d6; background: #eef3ff; color: #1a56d6; }
     .yn-btn.yes.active { border-color: #4caf50; background: #4caf50; color: #fff; }
-    .yn-btn.no.active  { border-color: #e53935; background: #e53935; color: #fff; }
+    .yn-btn.no.active { border-color: #e53935; background: #e53935; color: #fff; }
     .faq-hint { font-size: 12px; color: #e65100; background: #fff8f0; border: 1px solid #ffcc80; border-radius: 8px; padding: 9px 13px; margin-bottom: 10px; display: none; }
     .faq-hint.visible { display: block; }
-    .info-box { background: #eef3ff; border: 1px solid #c8d9f8; border-radius: 10px; padding: 13px 15px; margin-bottom: 14px; line-height: 1.65; }
+    .info-box { background: #eef3ff; border: 1px solid #c8d9f8; border-radius: 10px; padding: 13px 15px; margin-bottom: 12px; line-height: 1.65; }
     .info-box .info-title { font-size: 12px; font-weight: 500; color: #1a56d6; margin-bottom: 6px; }
     .info-box .info-steps { font-size: 12px; color: #333; list-style: none; display: flex; flex-direction: column; gap: 4px; }
     .info-box .info-steps li { display: flex; gap: 8px; align-items: flex-start; }
     .info-box .info-steps li .num { background: #1a56d6; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .warning-box { background: #fff8f0; border: 1px solid #ffcc80; border-radius: 10px; padding: 13px 15px; margin-bottom: 12px; font-size: 12px; color: #7a4100; line-height: 1.6; }
+    .warning-box .warning-title { font-size: 12px; font-weight: 500; color: #e65100; margin-bottom: 4px; }
     .faq-item { border: 1.5px solid #e0e8f8; border-radius: 10px; padding: 14px; background: #f7f9ff; margin-bottom: 8px; }
     .faq-label { font-size: 12px; font-weight: 500; color: #555; margin-bottom: 8px; }
     .faq-item textarea { width: 100%; border: 1px solid #d0d8ea; border-radius: 7px; padding: 10px; font-size: 13px; font-family: inherit; resize: none; background: #fff; color: #1a1a2e; outline: none; }
@@ -182,19 +175,17 @@
     const MAIL_EDV = 'apple@elbkhamm.de';
     const MAIL_HAUSMEISTER = 'hausmeister@elbkhamm.de';
     const EDV_ERRORS = ['Fernbedienung','WLAN','Drucker','Fernseher','Apple TV','Beamer'];
-    const FAQ_FB = [
-      { label: 'Fernbedienung aufgeladen', sub: 'Batterien vorhanden?' },
-      { label: 'Fernbedienung vorhanden', sub: null },
-      { label: 'Fernbedienung gekoppelt', sub: null }
-    ];
-    const FAQ_DRUCKER = [
-      { label: 'Papier aufgefüllt', sub: null },
-      { label: 'Toner leer', sub: null },
-      { label: 'Netzwerkkabel geprüft', sub: null },
-      { label: 'Drucker eingeschaltet', sub: null }
-    ];
+
+    const FAQ_FB      = [ { label: 'Fernbedienung aufgeladen', sub: 'Batterien vorhanden?' }, { label: 'Fernbedienung vorhanden', sub: null }, { label: 'Fernbedienung gekoppelt', sub: null } ];
+    const FAQ_DRUCKER = [ { label: 'Papier aufgefüllt', sub: null }, { label: 'Toner leer', sub: null }, { label: 'Netzwerkkabel geprüft', sub: null }, { label: 'Drucker eingeschaltet', sub: null } ];
+    const FAQ_ATV     = [ { label: 'ATV Kopplung iPad funktioniert', sub: null }, { label: 'ATV Kopplung TV funktioniert', sub: null }, { label: 'ATV Steuerung funktioniert', sub: null }, { label: 'ATV Netzwerkverbindung vorhanden', sub: null }, { label: 'ATV kurz vom Strom genommen', sub: null } ];
+    const FAQ_BEAMER  = [ { label: 'Einschalten möglich', sub: null }, { label: 'Bild vorhanden', sub: null }, { label: 'Steuerung mit der Fernbedienung möglich', sub: null }, { label: 'Gerät kurz vom Strom getrennt', sub: null } ];
+    const FAQ_TV      = [ { label: 'Gerät lässt sich einschalten', sub: null }, { label: 'Gerät lässt sich steuern', sub: null }, { label: 'Fernbedienung vorhanden', sub: null } ];
+    const FAQ_WLAN    = [ { label: 'WLAN-Netz sichtbar', sub: null }, { label: 'WLAN lässt sich verbinden', sub: null } ];
+
     let currentFaq = [];
     const answers = [];
+
     const rooms = {
       A: { 'Erdgeschoss': ['A002','A003','A005','A006','A009','A010','A011','A012'], 'Obergeschoss': ['A104','A105','A108','A109','A112','A113','A114','A115'] },
       C: { 'Pavillons': ['C001','C003','C004','C006','C007','C009','C011','C013','C014','C016','C017','C019'] },
@@ -262,32 +253,48 @@
       return '<p style="font-size:12px;color:#555;margin-bottom:10px;">Bitte alle Fragen beantworten, bevor die Meldung abgeschickt werden kann:</p>' +
         '<div class="faq-hint" id="faqHint">Bitte alle Fragen beantworten, um die Meldung abzuschicken.</div>' +
         '<div class="faq-checklist">' +
-        checks.map((q, i) => '<div class="check-item" id="chk'+i+'">' +
+        checks.map((q, i) =>
+          '<div class="check-item" id="chk'+i+'">' +
           '<div class="check-question">' + q.label + (q.sub ? '<br><span style="font-size:13px;font-weight:400;color:#555">' + q.sub + '</span>' : '') + '</div>' +
           '<div class="check-buttons"><div class="yn-btn yes" onclick="setAnswer('+i+',\'yes\')">Ja</div><div class="yn-btn no" onclick="setAnswer('+i+',\'no\')">Nein</div></div>' +
-          '</div>').join('') + '</div>';
+          '</div>'
+        ).join('') + '</div>';
     }
     function buildFaq() {
       const label = state.subError || state.error;
       const isFb = state.error === 'Fernbedienung';
       const isDrucker = state.error === 'Drucker';
-      const isAppleTV = state.subError === 'Apple TV-Fernbedienung';
+      const isATV = state.error === 'Apple TV';
+      const isBeamer = state.error === 'Beamer';
+      const isTV = state.error === 'Fernseher';
+      const isWlan = state.error === 'WLAN';
+      const isAppleTVFb = state.subError === 'Apple TV-Fernbedienung';
       const isHausmeister = state.error === 'Hausmeister';
       const isEdv = EDV_ERRORS.includes(state.error);
-      const needsFaq = isFb || isDrucker;
-      currentFaq = isFb ? FAQ_FB : isDrucker ? FAQ_DRUCKER : [];
+      const needsFaq = isFb || isDrucker || isATV || isBeamer || isTV || isWlan;
+      currentFaq = isFb ? FAQ_FB : isDrucker ? FAQ_DRUCKER : isATV ? FAQ_ATV : isBeamer ? FAQ_BEAMER : isTV ? FAQ_TV : isWlan ? FAQ_WLAN : [];
+
       let html = '<div class="section-title">Meldung – ' + label + '</div>';
-      if (isAppleTV) {
-        html += '<div class="info-box"><div class="info-title">Tipp: Apple TV über das iPad steuern</div><ul class="info-steps">' +
+
+      if (isAppleTVFb) {
+        html += '<div class="info-box"><div class="info-title">Tipp: Apple TV über das iPad steuern</div>' +
+          '<ul class="info-steps">' +
           '<li><span class="num">1</span><span>iPad entsperren und von oben rechts nach unten wischen, um das <strong>Kontrollzentrum</strong> zu öffnen.</span></li>' +
           '<li><span class="num">2</span><span>Das Symbol <strong>Apple TV Remote</strong> im Kontrollzentrum antippen.</span></li>' +
           '<li><span class="num">3</span><span>Das gewünschte Apple TV auswählen und direkt steuern.</span></li>' +
           '</ul></div>';
       }
+      if (isATV) {
+        html += '<div class="warning-box"><div class="warning-title">Hinweis</div>' +
+          'Das Streamen von Inhalten über Dienste wie Netflix, YouTube o.ä. ist über das iPad <strong>nicht möglich</strong>. Bitte dafür die direkt auf dem <strong>Apple TV installierten Apps</strong> verwenden.</div>';
+      }
       if (needsFaq) html += buildFaqChecklist(currentFaq);
+
       html += '<div class="faq-item"><div class="faq-label">Beschreibung</div><textarea id="faq_desc" rows="4" placeholder="Bitte das Problem so genau wie möglich beschreiben …"></textarea></div>';
+
       const mailAddr = isHausmeister ? MAIL_HAUSMEISTER : isEdv ? MAIL_EDV : null;
       if (mailAddr) html += '<div class="mail-hint">Diese Meldung wird per E-Mail gesendet an: <strong>' + mailAddr + '</strong></div>';
+
       document.getElementById('faqContent').innerHTML = html;
       document.getElementById('btnSubmit').disabled = needsFaq;
     }
@@ -312,7 +319,9 @@
       let checkedHTML = '';
       if (currentFaq.length > 0) {
         checkedLine = '\nPrüfung: ' + currentFaq.map((q, i) => q.label + ': ' + (answers[i]==='yes'?'Ja':'Nein')).join(' | ');
-        checkedHTML = '<br><strong>Prüfung</strong>&nbsp;&nbsp;' + currentFaq.map((q, i) => q.label + ': <span style="color:' + (answers[i]==='yes'?'#2e7d32':'#c62828') + '">' + (answers[i]==='yes'?'Ja':'Nein') + '</span>').join(' &nbsp;|&nbsp; ');
+        checkedHTML = '<br><strong>Prüfung</strong>&nbsp;&nbsp;' + currentFaq.map((q, i) =>
+          q.label + ': <span style="color:' + (answers[i]==='yes'?'#2e7d32':'#c62828') + '">' + (answers[i]==='yes'?'Ja':'Nein') + '</span>'
+        ).join(' &nbsp;|&nbsp; ');
       }
       document.getElementById('summaryBox').innerHTML =
         '<strong>Schule</strong>&nbsp;&nbsp;Elisabeth-Lüders-Berufskolleg, Hamm<br>' +
